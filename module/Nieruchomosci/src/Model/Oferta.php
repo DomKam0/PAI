@@ -107,7 +107,7 @@ class Oferta implements DbAdapter\AdapterAwareInterface
 		$session = new SessionManager();
 		$sql = new Sql($dbAdapter);
         
-        $ins = $sql->insert('log');
+        $ins = $sql->insert('test');
 		$ins->values([
 			'id_klienta' => $session->getId(),
             'id_oferty' => $idOferty,
