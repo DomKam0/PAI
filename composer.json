@@ -27,7 +27,8 @@
     "laminas/laminas-paginator": "^2.11",
     "neilime/twbs-helper-module": "^3.8",
     "laminas/laminas-paginator-adapter-laminasdb": "^1.0",
-    "mpdf/mpdf": "^6.1"
+    "mpdf/mpdf": "^8.0",
+    "laminas/laminas-mail": "^2.15"
   },
   "autoload": {
     "psr-4": {

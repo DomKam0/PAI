@@ -2,14 +2,13 @@
 
 namespace Nieruchomosci\Model;
 
-use Laminas\Paginator\Adapter\LaminasDb\DbSelect;
-use Laminas\View\Renderer\PhpRenderer;
 use Laminas\Db\Adapter as DbAdapter;
-use Laminas\Session\SessionManager;
-use Laminas\View\Model\ViewModel;
-use Laminas\Paginator\Paginator;
 use Laminas\Db\Sql\Sql;
-use ArrayObject;
+use Laminas\Paginator\Adapter\LaminasDb\DbSelect;
+use Laminas\Paginator\Paginator;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Mpdf\Mpdf;
 
 class Oferta implements DbAdapter\AdapterAwareInterface
 {
@@ -85,44 +84,38 @@ class Oferta implements DbAdapter\AdapterAwareInterface
         $vm->setTemplate('nieruchomosci/oferty/drukuj');
         $html = $this->phpRenderer->render($vm);
 
-        $mpdf = new \Mpdf\Mpdf(['tempDir' => getcwd() . '/data/temp']);
+        $mpdf = new Mpdf(['tempDir' => getcwd() . '/data/temp']);
         $mpdf->WriteHTML($html);
         $mpdf->Output('oferta.pdf', 'D');
     }
 
-    public function drukujKoszyk($oferty): void
+    public function DrukPDFOferta($oferta)
     {
-        
-        $mpdf = new \Mpdf\Mpdf(['tempDir' => getcwd() . '/data/temp']);
-        foreach($oferty as $oferta):
-            $vm = new ViewModel(['oferta' => $oferta]);
-            $vm->setTemplate('nieruchomosci/oferty/drukuj');
-            $html = $this->phpRenderer->render($vm);
-            $mpdf->AddPage();
-            $mpdf->WriteHTML($html);
-        endforeach;
+        $vm = new ViewModel(['oferta' => $oferta]);
+        $vm->setTemplate('nieruchomosci/oferty/drukuj');
+        $strona = $this->phpRenderer->render($vm);
 
-        if($mpdf != null)
-        {
-            $mpdf->Output('koszyk.pdf', 'D');
-        }
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($strona);
+
+        return $mpdf->Output('oferta.pdf', \Mpdf\Output\Destination::STRING_RETURN);
     }
-    public function pobierzOfertyKoszyk()
+
+    public function service($idOferty, $tresc, $telefon, $nadawca): void
     {
         $dbAdapter = $this->adapter;
-        $session = new SessionManager();
-        $sql = new Sql($dbAdapter);
-        $select = $sql->select('oferty');
-        $select->join(
-            'koszyk',
-            'oferty.id = koszyk.id_oferty',
-            [],
-            $select::JOIN_INNER 
-        );
-        $select->where(['koszyk.id_sesji' => $session->getId()]);
-        $selectStr = $sql->buildSqlString($select);
-		$result = $dbAdapter->query($selectStr, $dbAdapter::QUERY_MODE_EXECUTE);
-
-        return $result;
+		$session = new SessionManager();
+		$sql = new Sql($dbAdapter);
+        
+        $ins = $sql->insert('log');
+		$ins->values([
+			'id_klienta' => $session->getId(),
+            'id_oferty' => $idOferty,
+            'telefon' => $telefon,
+            'tresc' => $tresc,
+            'nadawca' => $nadawca]);
+            
+        $selectStr = $sql->buildSqlString($ins);
+		$wynik = $dbAdapter->query($selectStr, $dbAdapter::QUERY_MODE_EXECUTE);
     }
 }

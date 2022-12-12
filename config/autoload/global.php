@@ -24,4 +24,20 @@ return [
         'password' => '', // xampp
 //        'password' => 'admin', // docker
     ],
+    'mail' => [
+        'name' => 'imap.wit.edu.pl',
+        'host' => 'imap.wit.edu.pl',
+        'port' => 465,
+        'connection_class' => 'login',
+        'connection_config' => [
+            'username' => 'wprowadz_login',
+            'password' => 'wprowadz_haslo',
+            'ssl' => 'ssl',
+        ],
+        'from' => [
+            'email' => 'konto@wit.edu.pl',
+            'name' => 'Administrator strony',
+        ],
+        'to' => 'konto@wit.edu.pl',
+    ],
 ];

@@ -61,6 +61,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/setasign/fpdi" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-mime" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/true/punycode" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
