@@ -4,8 +4,8 @@ namespace Admin\Service;
 
 use Laminas\Authentication\Adapter\DbTable\CallbackCheckAdapter as AuthAdapter;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Crypt\Password\Bcrypt;
 use Admin\Service\LoginLog;
 
 class AuthService
@@ -30,7 +30,6 @@ class AuthService
     public function auth(string $login, string $haslo): bool
     {
         $loggr = new LoginLog($this->adapter);
-
         if (empty($login)) {
             return false;
         }
@@ -48,11 +47,11 @@ class AuthService
         if ($wynik->isValid()) {
             $dane = $adapter->getResultRowObject(null, ['haslo']);
             $this->authenticationService->getStorage()->write($dane);
-            $loggr->sendInfoLog("Użytkownik ". $login ." zalogowany");
+            $loggr->SentInfo($login ." zalogowany");
             return true;
         }
 
-        $loggr->sendInfoLog("Próba logowania zakończona niepowodzeniem");
+        $loggr->SentInfo("Próba logowania zakończona niepowodzeniem");
         return false;
     }
 
@@ -60,7 +59,7 @@ class AuthService
     {
         $loggr = new LoginLog($this->adapter);
         $this->authenticationService->clearIdentity();
-        $loggr->sendInfoLog("Użytkownik wylogowany");
+        $loggr->SentInfo("Użytkownik wylogowany");
     }
 
     public function loggedIn(): bool

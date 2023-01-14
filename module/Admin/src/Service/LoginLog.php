@@ -16,12 +16,12 @@ class LoginLog
     {
         $this->adapter = $adapter;
         $this->loggr = new Logger();
-        $this->confSaveToDatabase();
+        $this->configurationSentDatabase();
     }
 
-    private function confSaveToDatabase()
+    private function configurationSentDatabase()
     {
-        $mapping = [
+        $conf = [
             'timestamp' => 'czas',
             'message' => 'czyZalogowany',
             'extra' => [
@@ -32,12 +32,12 @@ class LoginLog
         
         $processor = new Processor\PsrPlaceholder();
         $this->loggr->addProcessor($processor);
-        $writer = new Writer\Db($this->adapter, 'logowanie', $mapping);
+        $writer = new Writer\Db($this->adapter, 'logowanie', $conf);
         $this->loggr->addWriter($writer);
 
     }
 
-    public function sendInfoLog($message)
+    public function SentInfo($message)
     {
         $this->loggr->info($message, ['ip' => $_SERVER['REMOTE_ADDR'], 'date' => date("Y-m-d")]);
     }
