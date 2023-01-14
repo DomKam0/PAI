@@ -88,34 +88,4 @@ class Oferta implements DbAdapter\AdapterAwareInterface
         $mpdf->WriteHTML($html);
         $mpdf->Output('oferta.pdf', 'D');
     }
-
-    public function DrukPDFOferta($oferta)
-    {
-        $vm = new ViewModel(['oferta' => $oferta]);
-        $vm->setTemplate('nieruchomosci/oferty/drukuj');
-        $strona = $this->phpRenderer->render($vm);
-
-        $mpdf = new Mpdf();
-        $mpdf->WriteHTML($strona);
-
-        return $mpdf->Output('oferta.pdf', \Mpdf\Output\Destination::STRING_RETURN);
-    }
-
-    public function service($idOferty, $tresc, $telefon, $nadawca): void
-    {
-        $dbAdapter = $this->adapter;
-		$session = new SessionManager();
-		$sql = new Sql($dbAdapter);
-        
-        $ins = $sql->insert('test');
-		$ins->values([
-			'id_klienta' => $session->getId(),
-            'id_oferty' => $idOferty,
-            'telefon' => $telefon,
-            'tresc' => $tresc,
-            'nadawca' => $nadawca]);
-            
-        $selectStr = $sql->buildSqlString($ins);
-		$wynik = $dbAdapter->query($selectStr, $dbAdapter::QUERY_MODE_EXECUTE);
-    }
 }

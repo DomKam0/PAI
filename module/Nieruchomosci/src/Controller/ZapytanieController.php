@@ -24,19 +24,9 @@ class ZapytanieController extends AbstractActionController
 
         if ($this->getRequest()->isPost() && $id) {
             $daneOferty = $this->oferta->pobierz($id);
-            $plikOferta = $this->oferta->drukPDFOferta($daneOferty);
-            $wynik = $this->zapytanie->wyslij($daneOferty,
-                                             $this->params()->fromPost('tresc'),
-                                             $this->params()->fromPost('email_odbiorca'),
-                                             $this->params()->fromPost('email_nadawca'),
-                                             $this->params()->fromPost('telefon'),
-                                             $plikOferta);
+            $wynik = $this->zapytanie->wyslij($daneOferty, $this->params()->fromPost('tresc'));
 
             if ($wynik) {
-                $this->oferta->service($id,
-                                         $this->params()->fromPost('tresc'), 
-                                         $this->params()->fromPost('email_nadawca'), 
-                                         $this->params()->fromPost('telefon'));
                 $this->getResponse()->setContent('ok');
             }
         }

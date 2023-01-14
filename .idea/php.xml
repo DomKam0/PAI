@@ -59,6 +59,8 @@
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-mail" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-mime" />
       <path value="$PROJECT_DIR$/vendor/true/punycode" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-crypt" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-math" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

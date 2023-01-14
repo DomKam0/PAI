@@ -2,14 +2,11 @@
 
 namespace Nieruchomosci\Model;
 
-use Laminas\Mail\Transport\Smtp as SmtpTransport;
-use Laminas\Mime\Message as MimeMessage;
-use Laminas\Mail\Transport\SmtpOptions;
-use Laminas\Mime\Part as MimePart;
-use Nieruchomosci\Model\Oferta;
 use Laminas\Mail\Message;
-use Laminas\Mime\Mime;
-
+use Laminas\Mail\Transport\Smtp as SmtpTransport;
+use Laminas\Mail\Transport\SmtpOptions;
+use Laminas\Mime\Message as MimeMessage;
+use Laminas\Mime\Part as MimePart;
 
 class Zapytanie
 {
@@ -36,7 +33,7 @@ class Zapytanie
      * @param string $tresc
      * @return bool
      */
-    public function wyslij($daneOferty, string $email_odbiorca, string $tresc, string $email_nadawca, string $telefon, $plik) : bool
+    public function wyslij($daneOferty, string $tresc): bool
     {
         $transport = new SmtpTransport();
         $options = new SmtpOptions($this->smtpTransportConfig);
@@ -46,27 +43,13 @@ class Zapytanie
         $part->type = 'text/plain';
         $part->charset = 'utf-8';
 
-        $partA = new MimePart("\nAdres email kontaktowy klienta: $email_nadawca");
-        $partA->type = 'text/plain';
-        $partA->charset = 'utf-8';
-
-        $partB = new MimePart("\nTelefon klienta: $telefon");
-        $partB->type = 'text/plain';
-        $partB->charset = 'utf-8';
-
-        $partC = new MimePart($plik);
-        $partC->type = 'application/pdf';
-        $partC->filename = "\noferta_$daneOferty[numer].pdf";
-        $partC->disposition = Mime::DISPOSITION_ATTACHMENT;
-        $partC->encoding = Mime::ENCODING_BASE64;
-
         $body = new MimeMessage();
-        $body->setParts([$part, $partA, $partB, $partC]);
+        $body->setParts([$part]);
 
         $message = new Message();
         $message->setEncoding('UTF-8');
         $message->setFrom($this->from['email'], $this->from['name']); // konto do wysyłania maili z serwisu
-        $message->addTo($this->$email_odbiorca, "Administrator"); // osoba obsługująca zgłoszenia
+        $message->addTo($this->to, "Administrator"); // osoba obsługująca zgłoszenia
         $message->setSubject("Zainteresowanie ofertą");
         $message->setBody($body);
 

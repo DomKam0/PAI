@@ -2,8 +2,8 @@
 
 namespace Nieruchomosci\Model;
 
-use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ZapytanieFactory implements FactoryInterface
 {

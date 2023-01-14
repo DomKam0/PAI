@@ -1,22 +1,11 @@
 <?php
 $this->headScript()->appendFile($this->basePath('/js/zapytanie.js'), 'text/javascript', ['defer' => true]);
-
-$email_odbiorca = new \Laminas\Form\Element\Email('email_odbiorca');
-$email_odbiorca->setLabel('Email Odbiorcy');
-
-$email_nadawca = new \Laminas\Form\Element\Email('email_nadawca');
-$email_nadawca->setLabel('Email Nadawcy');
-
-$telefon = new \Laminas\Form\Element\Tel('telefon');
-$telefon->setLabel('Telefonu');
-
 $tresc = new \Laminas\Form\Element\Textarea('tresc');
 $tresc->setAttributes(['rows' => 5]);
 $tresc->setValue("Jestem zainteresowany ofertą numer $oferta[numer]. \nProszę o kontakt.");
 ?>
 
 <h2>Szczegóły oferty <?= $oferta->numer ?></h2>
-
 
 <p>
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalZapytanie">
@@ -46,14 +35,7 @@ $tresc->setValue("Jestem zainteresowany ofertą numer $oferta[numer]. \nProszę 
                         action="<?= $this->url('nieruchomosci/zapytanie', ['action' => 'wyslij'], null, true) ?>"
                         id="formZapytanie"
                 >
-                    <strong> Email odbiorcy: </strong>
-                    <?= $this->formElement($email_odbiorca) ?>
-                    <strong> Treść wiadomości: </strong>
                     <?= $this->formElement($tresc) ?>
-                    <strong> Email kontaktowy: </strong>
-                    <?= $this->formElement($email_nadawca) ?>
-                    <strong> Telefon: </strong>
-                    <?= $this->formElement($telefon) ?>
                 </form>
             </div>
             <div class="modal-footer">

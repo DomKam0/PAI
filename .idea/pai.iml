@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/module/Nieruchomosci/src" isTestSource="false" packagePrefix="Nieruchomosci\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Admin/src" isTestSource="false" packagePrefix="Admin\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/varexporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
@@ -64,6 +65,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-mail" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-mime" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/true/punycode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-crypt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-math" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
