@@ -16,10 +16,10 @@ class LoginLog
     {
         $this->adapter = $adapter;
         $this->loggr = new Logger();
-        $this->configurationSentDatabase();
+        $this->confSent();
     }
 
-    private function configurationSentDatabase()
+    private function confSent()
     {
         $conf = [
             'timestamp' => 'czas',
